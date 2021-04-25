@@ -39,9 +39,9 @@ class Lane:
         # Undistort the image
         img = cv2.undistort(img, self.mtx, self.dist, None, self.mtx)
 
-        sobelx_thresh = (15, 255)
-        sobely_thresh = (15, 255)
-        magthresh = (15,255)
+        sobelx_thresh = (50, 255)
+        sobely_thresh = (50, 255)
+        magthresh = (50,255)
         sthresh = (80,255)
         vthresh = (80,255)
         sobel_kernel = 3

@@ -34,7 +34,7 @@ The general steps of this project are the following:
 
 The code for this step is contained in the file called `calibration.py`(calibration.py).
 
-Note: I saved the camera calibration results instead of calculating them each time.
+Note: I saved the camera calibration results as a pickle file instead of calculating them everytime.
 
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image which you can find an example below.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.
 
@@ -61,18 +61,15 @@ Here is a comparision of original distorted image and undistorted image. As you 
 
 #### 2. Identify lane lines through edge detection
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines 4 through 81 in `utils.py`(utils.py)).  Here's an example of my output for this step.
+I implemented this step in the file called `utils.py`(utils.py)). Here's an example of my output for this step.
 
 ![alt text][image4]
 
-The binary image above uses different techniques, which we previously saw in the lessons, such as Sobel filter and alternative color spaces.
-
-//TODO:update here regarding color threshold choices
-In the HLS colour space, I used a combination of thresholds from the L (light) and S (saturation) channels to produce my binary images. From the L channel I take the gradient in the x direction with the thresholds (20, 100). From the S channel I apply colour selection with thresholds (170, 255).
+The binary image above uses different techniques, which we previously saw in the course, such as sobel filter, gradient and alternative color spaces.
 
 #### 3. Perspective Transform
 
-The code for my perspective transform is in lines 52 through 67 in the file `lane.py` (lane.py). The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for my perspective transform is in lines 51 through 67 in the file `lane.py` (lane.py). I chose the hardcode the source and destination points in the following manner:
 
 ```python
 src = np.float32(
@@ -104,7 +101,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 #### 4. Identify Lane Line Pixels
 
-The code for this is found in `lane.py`(lane.py) (lines 82-151).
+The code for this step can be found in `lane.py`(lane.py) (lines 82-151).
 
 **Sliding Window Search**
 
@@ -123,18 +120,18 @@ Computing curvature radius for both left and right lines defined by 2nd degree p
 
 After finding the curvature of each line, we simply get the average of the two:
 ```python
-left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
-        right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
-        self.radius_of_curvature = (left_curverad+right_curverad)/2
+ left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
+ right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
+ self.radius_of_curvature = (left_curverad+right_curverad)/2
 ```
 
 **Vehicle Position**
-A negative distance from the centre of the lane indicates that the vehicle is left of centre, while a positive distance indicates that the vehicle is right of centre.
+A negative distance from the center of the lane indicates that the vehicle is left of center, while a positive distance indicates that the vehicle is right of center.
 
 To calculate the offset, we calculate the x position of each lane line within the image and subtract the the center of the lane (which we assume is the location of the camera), after converting pixels to meters.
 ```python
  camera_center = (left_fitx[-1] + right_fitx[-1])/2
-        self.line_base_pos = (camera_center-unwarped.shape[1]/2)*xm_per_pix
+ self.line_base_pos = (camera_center-unwarped.shape[1]/2)*xm_per_pix
 ```
 
 #### 6. Plot lane line detection back on to the image
