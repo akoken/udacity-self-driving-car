@@ -3,7 +3,7 @@ import cv2
 import pickle
 import glob
 from moviepy.editor import VideoFileClip
-from utils import mag_thresh, dir_thresh, color_thresh, undist_color_thresh_img
+from utils import combine_binarized_thresholded_img
 
 # Read in the saved matrix and distortion coefficients
 dist_pickle = pickle.load(open('./camera_cal/calibration_pickle.p', 'rb'))
@@ -39,19 +39,6 @@ class Lane:
         # Undistort the image
         img = cv2.undistort(img, self.mtx, self.dist, None, self.mtx)
 
-        # Threshold gradient
-        #grad_binary = np.zeros_like(img[:,:,0])
-        #mag_binary = mag_thresh(img, sobel_kernel=9, thresh=(50, 255))
-        #dir_binary = dir_thresh(img, sobel_kernel=15, thresh=(0.7, 1.3))
-        #grad_binary[((mag_binary == 1) & (dir_binary == 1))] = 1
-
-        # Threshold color
-        #color_binary = color_thresh(img, sx_thresh=(20, 100), s_thresh=(170, 255))
-
-        # Combine gradient and color thresholds
-        #combo_binary = np.zeros_like(img[:,:,0])
-        #combo_binary[(grad_binary == 1) | (color_binary == 1)] = 255
-
         sobelx_thresh = (15, 255)
         sobely_thresh = (15, 255)
         magthresh = (15,255)
@@ -59,7 +46,7 @@ class Lane:
         vthresh = (80,255)
         sobel_kernel = 3
 
-        combined_binary = undist_color_thresh_img(img, sobelx_thresh, sobely_thresh, magthresh, sthresh, vthresh, sobel_kernel)
+        combined_binary = combine_binarized_thresholded_img(img, sobelx_thresh, sobely_thresh, magthresh, sthresh, vthresh, sobel_kernel)
 
         # Define perspective transform area
         img_size = (img.shape[1], img.shape[0])
@@ -198,7 +185,7 @@ class Lane:
         left_fit_cr = np.polyfit(ploty*ym_per_pix, left_fitx*xm_per_pix, 2)
         right_fit_cr = np.polyfit(ploty*ym_per_pix, right_fitx*xm_per_pix, 2)
 
-        # Calculate radii of curvature
+        # Calculate radius of curvature
         left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
         right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
         self.radius_of_curvature = (left_curverad+right_curverad)/2
@@ -210,7 +197,7 @@ class Lane:
         if self.line_base_pos <= 0:
             side_pos = 'right'
 
-        # draw the text showing curvature, offset, and speed
+        # draw the text showing curvature and offset
         cv2.putText(result, 'Radius of curvature : ' + str(round(self.radius_of_curvature, 3))+' (m)',(50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255),2)
         cv2.putText(result,'Vehicle is '+str(abs(round(self.line_base_pos,3)))+'m '+side_pos+' of center',(50,100), cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),2)
 
