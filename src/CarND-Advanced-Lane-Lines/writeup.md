@@ -13,20 +13,20 @@ The general steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
+
+
 [//]: # (Image References)
 
 [image1]: ./output_images/corners_found.png "Found Corners"
 [image2]: ./output_images/undistorted.png "Undistorted"
 [image3]: ./output_images/undistorted2.png "Undistorted Image"
 [image4]: ./output_images/undistorted_binary.png "Undistorted Binary Image"
-[image5]: ./output_images/top_down_view0.png "Top Down View"
-[image6]: ./output_images/top_down_view.png "Top Down View"
+[image5]: ./output_images/top_down_view.png "Top Down View"
+[image6]: ./output_images/top_down_view0.png "Top Down View"
 [image7]: ./output_images/top_down_view2.png "Top Down View"
 [image8]: ./output_images/histogram.png "Histogram"
 [image9]: ./output_images/lane_detected_image.png "Final"
 [image10]: ./output_images/final.gif "Final"
-
-## Detailed Project Explanation
 
 ![alt text][image10]
 ---
@@ -68,7 +68,7 @@ I implemented this step in the file called `utils.py`(utils.py)). Here's an exam
 
 ![alt text][image4]
 
-The binary image above uses different techniques, which we previously saw in the course, such as sobel filter, gradient and alternative color spaces.
+The combined binary image above uses different techniques, which we previously saw in the course, such as sobel filter, gradient and different color spaces. I used HSV color space instead of RGB color space. My experiments showed that V(Value) and S(Saturation) channel in HSV color space worked pretty well for edge detection.
 
 #### 3. Perspective Transform
 
@@ -108,9 +108,9 @@ The code for this step can be found in `lane.py`(lane.py) (lines 82-151).
 
 **Sliding Window Search**
 
-After applying calibration, thresholding, and a perspective transform to a road image, I have a binary image  where the lane lines stand out clearly.
+After applying calibration, thresholding and perspective transform to the image, I have a binary image  where the lane lines stand out clearly.
 
-To identify the lane lines, I used the sliding-window technique to identify lane pixels in the frames. I first take a histogram along all the columns in the image, adding up the pixel values along each column in the image. In my thresholded binary image, pixels are either 0 or 1, so the two most prominent peaks in this histogram will be good indicators of the x-position of the base of the lane lines.
+I used the sliding window technique to identify lane pixels in the frames. I first take a histogram along all the columns in the image, adding up the pixel values along each column in the image. In my thresholded binary image, pixels are either 0 or 1, so the two most prominent peaks in this histogram will be good indicators of the x-position of the base of the lane lines. After saving all of the pixel indices within the windows, I use second order polynomial to approximate the lane boundaries.
 
 ![alt text][image8]
 
@@ -154,6 +154,7 @@ Here's a [link to my video result](./out_project_video.mp4)
 
 ### Discussion
 
-This pipeline by no means is perfect. It is still very vulnerable to many abnormalities in real life, such as shaddows, lightings changes, window reflections, faded lane lines, etc. The polynomial fit will also fail especially when lines edges detected are not enough, so lines sometimes warbble or jump around.
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?
 
-If I were to improve this pipeline, I will consider more techniques in smoothing to average the polynomials out. I will try to skip a fit if the lane-fit significantly differs from previous timestamps' fits, until a threshold is reached so I will recalculate the fit. I will also consider more robust techiniques for lane detection, than simple color thresholding and edge detection. For example, a Convolutional Neural Network. The goal will be try to identify lane lines under different lighting conditions.
+
+Although this pipeline works well with the project video, it is still not perfect. There are some conditions impacting its performance such as faded lines, lighting changes, shadows, sharp curves etc. To improve this pipeline, I could optimize hyperparameters like gradient, color transforms and thresholds. In order to create a robust lane detection pipeline working under different conditions, it may be a good choice to use CNN(Convolutional Neural Network).

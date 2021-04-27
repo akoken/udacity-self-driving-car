@@ -39,12 +39,12 @@ class Lane:
         # Undistort the image
         img = cv2.undistort(img, self.mtx, self.dist, None, self.mtx)
 
-        sobelx_thresh = (50, 255)
-        sobely_thresh = (50, 255)
-        magthresh = (50,255)
+        sobel_kernel = 3
+        sobelx_thresh = (10, 255)
+        sobely_thresh = (10, 255)
+        magthresh = (10,255)
         sthresh = (80,255)
         vthresh = (80,255)
-        sobel_kernel = 3
 
         combined_binary = combine_binarized_thresholded_img(img, sobelx_thresh, sobely_thresh, magthresh, sthresh, vthresh, sobel_kernel)
 
@@ -199,6 +199,6 @@ class Lane:
 
         # draw the text showing curvature and offset
         cv2.putText(result, 'Radius of curvature : ' + str(round(self.radius_of_curvature, 3))+' (m)',(50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255),2)
-        cv2.putText(result,'Vehicle is '+str(abs(round(self.line_base_pos,3)))+'m '+side_pos+' of center',(50,100), cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),2)
+        cv2.putText(result,'Vehicle is '+str(abs(round(self.line_base_pos,3)))+' m '+side_pos+' of center',(50,100), cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,255),2)
 
         return result

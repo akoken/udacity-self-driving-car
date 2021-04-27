@@ -17,20 +17,17 @@ def combine_binarized_thresholded_img(img, sobelx_thresh, sobely_thresh, magthre
     output[( (sobelx == 1) & (sobely == 1) & (mag == 1))  | (color == 1)] = 1
     return output
 
-def color_thresh(img, sthresh=(0, 255), vthresh=(0, 255), lthresh=(0,255)):
-    # Convert to HLS color space
-    hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)
-    s_channel = hls[:,:,2]
+def color_thresh(img, sthresh=(0, 255), vthresh=(0, 255)):
+    # Convert to HSV color space
+    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
 
     # Apply a threshold to the S channel
+    s_channel = hsv[:,:,1]
     s_binary = np.zeros_like(s_channel)
     s_binary[(s_channel >= sthresh[0]) & (s_channel <= sthresh[1])] = 1
 
-    # Convert to HSV color space
-    hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
-    v_channel = hsv[:,:,2]
-
     # Apply a threshold to the V channel
+    v_channel = hsv[:,:,2]
     v_binary = np.zeros_like(v_channel)
     v_binary[(v_channel >= vthresh[0]) & (v_channel <= vthresh[1])] = 1
 
