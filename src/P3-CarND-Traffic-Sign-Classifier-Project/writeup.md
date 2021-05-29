@@ -135,7 +135,7 @@ My final model results were:
 If an iterative approach was chosen:
 *  First I used the LeNet architecture as a base model. I chose it because it worked well for number images such as MNIST dataset. I thought that it could be a good start for classifying traffic sign images.
 * LeNet model could not give the satisfactory result I expected. Validation accuracy was limited to 90%.
-* By tweaking the hyperparameters many times and applying data augmentation, I managed to increase test accuracy to 93% which is enough for project goal. From my Deep Learning ND experience, I know that I need deep architecture to extract more features. Therefore I dropped LeNet and implemented my TrafficSignNet architecture mentioned above. For regularization, I used dropout layer in fully connected layer.
+* By tweaking the hyperparameters many times and applying data augmentation, I managed to increase test accuracy to 93% which is enough for the project goal. According to my experience from my Deep Learning ND Program, I know that I needed a deeper architecture to extract more features. Therefore I dropped LeNet and implemented my TrafficSignNet architecture mentioned above. For regularization, I used dropout layer in fully connected layer.
 
 
 ### Test a Model on New Images
@@ -185,7 +185,7 @@ TopKV2(values=array([[  9.99996543e-01,   2.72532202e-06,   6.14765213e-07,
 
 ```
 
-For the first image, the model is sure that this is speed limit 120km/h sign (probability of 0.999999). The top five soft max probabilities were
+The top five soft max probabilities were:
 
 ![alt text][image9]
 
