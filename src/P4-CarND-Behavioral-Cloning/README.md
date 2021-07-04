@@ -21,6 +21,8 @@ To meet specifications, the project will require submitting five files:
 
 This README file describes how to output the video in the "Details About Files In This Directory" section.
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/BQo8ZgktOSc/0.jpg)](https://www.youtube.com/watch?v=BQo8ZgktOSc)
+
 Creating a Great Writeup
 ---
 A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/432/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
