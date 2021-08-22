@@ -158,13 +158,13 @@ vector<double> getXY(double s, double d, const vector<double> &maps_s,
 // Finds lane from frenet d value.
 int FindLane(float d) {
     if (d > 0 && d < 4) {
-        return target_lane = 0;
+        return 0;
     }
     if (d > 4 && d < 8) {
-        return target_lane = 1;
+        return 1;
     }
     if (d > 8 && d < 12) {
-        return target_lane = 2;
+        return 2;
     }
     return -1;
 }
