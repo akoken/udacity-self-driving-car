@@ -10,11 +10,11 @@ Self-Driving Car Engineer Nanodegree Program
 
 * **Max acceleration and jerk are not exceeded:** Initial velocity is 0. The ego car steadily speeds up and slows down by MAX_ACC in order to avoid collision.
 
-* **Car does not have collisions:** To avoid any collision, I used sensor fusion data. The model loops through all the other vehicles and checks if the ego car is within a certain distance of any other vehicle. If there is a vehicle in front of the ego car, the model tries to change lane to avoid collision. If there is no available lane to change to, the model will slow down.
+* **Car does not have collisions:** To avoid any collision, I used sensor fusion data. The model loops through all the other vehicles and checks if the ego car is within a certain distance of any other vehicle. If there is a vehicle in front of the ego car, the model tries to change lane to avoid collision. If there is no available lane to change to, the model will slow down. The related code can be found in lines 107 through 167 in `main.cpp` file.
 
-* **The car stays in its lane, except for the time between changing lanes:** The vehicle is able to keep its lane through understanding the width of each lane, generating future waypoints and interpolating additional points between the future waypoints. I created future waypoints by using Frenet coordinates at set intervals (30m, 60m 90m). Using a spline as recommended in the course video, I was able to interpolate the remaining points needed to create a smooth trajectory for our vehicle.
+* **The car stays in its lane, except for the time between changing lanes:** The vehicle is able to keep its lane through understanding the width of each lane, generating future waypoints and interpolating additional points between the future waypoints. I created future waypoints by using Frenet coordinates at set intervals (30m, 60m 90m). Using a spline as recommended in the course video, I was able to interpolate the remaining points needed to create a smooth trajectory for our vehicle. (The code for this is in lines 199 through 255 in `main.cpp` file.)
 
-* **The car is able to change lanes:** If there is a vehicle in front of the ego car, the model will determine if the neighboring lanes are clear to change. If the lane is clear, we set our lane variable equal to the value of the lane the vehicle should merge into. If the ego car is not in the middle lane, the model will try to change lane back to the middle lane.
+* **The car is able to change lanes:** If there is a vehicle in front of the ego car, the model will determine if the neighboring lanes are clear to change. If the lane is clear, we set our lane variable equal to the value of the lane the vehicle should merge into. If the ego car is not in the middle lane, the model will try to change lane back to the middle lane. The related code can be found in lines 140 through 162 in `main.cpp` file.
 
 
 ### Simulator.
