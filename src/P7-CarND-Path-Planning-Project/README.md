@@ -1,8 +1,24 @@
 # CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
-   
+
+## Model Documentation
+### Project Rubrics
+
+* **Car able to drive at least 4.32 miles without incident:** The model allows the car to drive at least 4.32 miles without incident.
+
+* **The car drives according to the speed limit:** The ego car's current speed stored in a variable named ref_val and the maximum speed limit, which is set to 49.5 mph, is stored as a constant in `constants.h` file. The car does not exceed the speed limit of 50 mph.
+
+* **Max acceleration and jerk are not exceeded:** Initial velocity is 0. The ego car steadily speeds up and slows down by MAX_ACC in order to avoid collision.
+
+* **Car does not have collisions:** To avoid any collision, I used sensor fusion data. The model loops through all the other vehicles and checks if the ego car is within a certain distance of any other vehicle. If there is a vehicle in front of the ego car, the model tries to change lane to avoid collision. If there is no available lane to change to, the model will slow down.
+
+* **The car stays in its lane, except for the time between changing lanes:** The vehicle is able to keep its lane through understanding the width of each lane, generating future waypoints and interpolating additional points between the future waypoints. I created future waypoints by using Frenet coordinates at set intervals (30m, 60m 90m). Using a spline as recommended in the course video, I was able to interpolate the remaining points needed to create a smooth trajectory for our vehicle.
+
+* **The car is able to change lanes:** If there is a vehicle in front of the ego car, the model will determine if the neighboring lanes are clear to change. If the lane is clear, we set our lane variable equal to the value of the lane the vehicle should merge into. If the ego car is not in the middle lane, the model will try to change lane back to the middle lane.
+
+
 ### Simulator.
-You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases/tag/T3_v1.2).  
+You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases/tag/T3_v1.2).
 
 To run the simulator on Mac/Linux, first make the binary file executable with the following command:
 ```shell
@@ -43,13 +59,13 @@ Here is the data provided from the Simulator to the C++ Program
 #### Previous path data given to the Planner
 
 //Note: Return the previous list but with processed points removed, can be a nice tool to show how far along
-the path has processed since last time. 
+the path has processed since last time.
 
 ["previous_path_x"] The previous list of x points previously given to the simulator
 
 ["previous_path_y"] The previous list of y points previously given to the simulator
 
-#### Previous path's end s and d values 
+#### Previous path's end s and d values
 
 ["end_path_s"] The previous list's last point's frenet s value
 
@@ -57,7 +73,7 @@ the path has processed since last time.
 
 #### Sensor Fusion Data, a list of all other car's attributes on the same side of the road. (No Noise)
 
-["sensor_fusion"] A 2d vector of cars and then that car's [car's unique ID, car's x position in map coordinates, car's y position in map coordinates, car's x velocity in m/s, car's y velocity in m/s, car's s position in frenet coordinates, car's d position in frenet coordinates. 
+["sensor_fusion"] A 2d vector of cars and then that car's [car's unique ID, car's x position in map coordinates, car's y position in map coordinates, car's x velocity in m/s, car's y velocity in m/s, car's s position in frenet coordinates, car's d position in frenet coordinates.
 
 ## Details
 
@@ -87,7 +103,7 @@ A really helpful resource for doing this project and creating smooth trajectorie
   * Run either `install-mac.sh` or `install-ubuntu.sh`.
   * If you install from source, checkout to commit `e94b6e1`, i.e.
     ```
-    git clone https://github.com/uWebSockets/uWebSockets 
+    git clone https://github.com/uWebSockets/uWebSockets
     cd uWebSockets
     git checkout e94b6e1
     ```
