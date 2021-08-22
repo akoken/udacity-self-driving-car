@@ -7,8 +7,8 @@
 
 #include "Eigen-3.3/Eigen/Core"
 #include "Eigen-3.3/Eigen/QR"
-#include "helpers.h"
 #include "constants.h"
+#include "helpers.h"
 #include "json.hpp"
 #include "spline.h"
 
@@ -144,9 +144,8 @@ int main() {
                             lane--;
                         } else if (!other_vehicle_right && lane != 2) {
                             lane++;
-                        } else
-                        {
-                            delta_v -= MAX_ACC;//It's not safe to change lane, so slow down.
+                        } else {
+                            delta_v -= MAX_ACC;  //It's not safe to change lane, so slow down.
                         }
                     } else {
                         if (lane != 1)  // check if ego vehicle is in the middle lane.
