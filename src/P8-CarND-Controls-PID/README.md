@@ -19,11 +19,11 @@ I tweaked the PID parameters through manual tuning at first. After the vehicle w
 
 You can find related videos below.
 
-* [Only P Component](/videos/only-p-component.mp4)
+* [Only P Component](https://youtu.be/iO6mKdaFC6c)
 
-* [Only PD Component](/videos/only-pd-component.mp4)
+* [Only PD Component](https://youtu.be/cCAhiQj0MSs)
 
-* [Final Hyperparameters](/videos/final-hyperparameters.mp4)
+* [Final Hyperparameters](https://youtu.be/o4ySiT1Aonk)
 
 ---
 
