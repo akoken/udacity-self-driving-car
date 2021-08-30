@@ -5,7 +5,8 @@ Self-Driving Car Engineer Nanodegree Program
 ## Introduction
 The purpose of this project is to implement a PID controller in C++ to maneuver the vehicle around the track and tune PID hyperparameters through manual tuning, twiddle, SGD(Stocastic Gradient Descent) or something else.
 ## Rubric Points Reflection
-** Describe the effect each of the P, I, D components had in your implementation:** The PID controller runs based on the cross-track error (CTE), which is calculated using the vehicle's distance from the center of the lane. The CTE is used to calculate the proportional (P), integral (I) and Differential (D) values which together can be used to calculate the total error, alpha. This total error is used as a steering value and throttle measurement that corrects the vehicle's position and speed until it reaches the center of the lane and maximum acceleration.
+**Describe the effect each of the P, I, D components had in your implementation:** 
+The PID controller runs based on the cross-track error (CTE), which is calculated using the vehicle's distance from the center of the lane. The CTE is used to calculate the proportional (P), integral (I) and Differential (D) values which together can be used to calculate the total error, alpha. This total error is used as a steering value and throttle measurement that corrects the vehicle's position and speed until it reaches the center of the lane and maximum acceleration.
 
 The P component had the most observable effect on the car's behavior. It causes the car to overshoot the target resulting in an oscillation around the target.
 
@@ -13,7 +14,8 @@ The D component counteracts the oscillation from P. It helps the vehicle to appr
 
 The I component counteracts a bias in the CTE which prevents the PD controller from reaching the lane center.
 
-**Describe how the final hyperparameters were chosen:** I tweaked the PID parameters through manual tuning at first. After the vehicle was able to complete the lap reliably without leaving the drivable area, twiddle algorithm was used to find the best set of parameters.
+**Describe how the final hyperparameters were chosen:** 
+I tweaked the PID parameters through manual tuning at first. After the vehicle was able to complete the lap reliably without leaving the drivable area, twiddle algorithm was used to find the best set of parameters.
 
 You can find related videos below.
 
