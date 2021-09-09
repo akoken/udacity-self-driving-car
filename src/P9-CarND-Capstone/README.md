@@ -14,7 +14,7 @@ The following is a system architecture diagram showing the ROS nodes and topics 
 
 ### Rubric Points
 
-**The code is built successfully and connects to the simulator:** The project is built and runs successfully. No errors observed with `catkin_make`, `source devel/setup.sh` and `roslaunch launch/styx.launch`.
+**The code is built successfully and connects to the simulator:** Thanks to code walkthrough lessons, the project is built and runs successfully. No errors observed with `catkin_make`, `source devel/setup.sh` and `roslaunch launch/styx.launch`.
 
 **Waypoints are published to plan Carla’s route around the track:** The waypoints are published to the `/final_waypoint` topic in `waypoint_update.py` (line 82). Acceleration and jerk limits are not exceeded. The top speed of the vehicle is limited to the km/h velocity set by the velocity ros param in `waypoint_loader.py`.
 
